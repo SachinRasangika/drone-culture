@@ -5,30 +5,38 @@ import { BrandMark } from './BrandMark';
 import { DC_EASE, dcSpringGentle, dcViewport } from '../lib/motion';
 import { RevealStagger, RevealItem } from './Reveal';
 
+const b = import.meta.env.BASE_URL;
+const droneSvgs = [
+  `${b}drone-placeholder.svg`,
+  `${b}drone-placeholder-2.svg`,
+  `${b}drone-placeholder-3.svg`,
+  `${b}drone-placeholder-4.svg`,
+];
+
 const drones = [
   {
     coverage: '8K Cinema',
     name: 'SkyFrame Pro',
     subtitle: 'Cinematic Videography',
-    image: 'https://pngimg.com/d/drone_PNG198.png',
+    image: droneSvgs[0],
   },
   {
     coverage: '4K HDR',
     name: 'SkyFrame Scout',
     subtitle: 'Real Estate & Events',
-    image: 'https://pngimg.com/d/drone_PNG63.png',
+    image: droneSvgs[1],
   },
   {
     coverage: '6K RAW',
     name: 'SkyFrame Ultra',
     subtitle: 'High-End Commercials',
-    image: 'https://pngimg.com/d/drone_PNG43.png',
+    image: droneSvgs[2],
   },
   {
     coverage: '4K 60fps',
     name: 'SkyFrame Mini',
     subtitle: 'Travel & Fast Action',
-    image: 'https://pngimg.com/d/drone_PNG182.png',
+    image: droneSvgs[3],
   },
 ];
 

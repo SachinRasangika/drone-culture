@@ -3,14 +3,14 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { BrandMark } from './BrandMark';
 import { dcTransition } from '../lib/motion';
+import { picsum, randomPortrait } from '../lib/imageCdn';
+
 const testimonials = [
 {
   name: 'Richard Exten',
   subtitle: 'Real Estate Director',
-  image:
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop&q=80',
-  portrait:
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80',
+  image: picsum(201, 720, 900),
+  portrait: randomPortrait('men', 32),
   quoteBold:
   '"Using Drone Culture has completely changed the way we showcase properties.',
   quoteLight:
@@ -21,10 +21,8 @@ const testimonials = [
 {
   name: 'James Holloway',
   subtitle: 'Commercial Filmmaker',
-  image:
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=750&fit=crop&q=80',
-  portrait:
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&q=80',
+  image: picsum(214, 720, 900),
+  portrait: randomPortrait('men', 44),
   quoteBold:
   '"Drone Culture\'s drone videography gave us shots we never thought possible.',
   quoteLight:
@@ -35,10 +33,8 @@ const testimonials = [
 {
   name: 'Thomas Berger',
   subtitle: 'Event Organizer',
-  image:
-  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=750&fit=crop&q=80',
-  portrait:
-  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&q=80',
+  image: picsum(227, 720, 900),
+  portrait: randomPortrait('men', 56),
   quoteBold:
   '"The aerial coverage from Drone Culture captured the true scale of our festival.',
   quoteLight:
@@ -49,10 +45,8 @@ const testimonials = [
 {
   name: 'Erik van Dijk',
   subtitle: 'Landscape Photographer',
-  image:
-  'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=750&fit=crop&q=80',
-  portrait:
-  'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&q=80',
+  image: picsum(240, 720, 900),
+  portrait: randomPortrait('women', 38),
   quoteBold:
   '"Partnering with Drone Culture elevated my portfolio instantly.',
   quoteLight:

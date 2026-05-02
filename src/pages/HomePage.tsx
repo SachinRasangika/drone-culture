@@ -4,6 +4,7 @@ import { HeroBanner } from '../components/HeroBanner';
 import { Portfolio } from '../components/Portfolio';
 import { AboutProduct } from '../components/AboutProduct';
 import { DroneModels } from '../components/DroneModels';
+import { DroneShowreel } from '../components/DroneShowreel';
 import { FieldInsights } from '../components/FieldInsights';
 import { SmartModules } from '../components/SmartModules';
 import { NewRelease } from '../components/NewRelease';
@@ -29,6 +30,7 @@ export function HomePage() {
       <AboutProduct />
       <Portfolio />
       <DroneModels />
+      <DroneShowreel />
       <FieldInsights />
       <SmartModules />
       <NewRelease />

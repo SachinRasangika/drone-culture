@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrandMark } from './BrandMark';
 import { Reveal, RevealItem, RevealStagger } from './Reveal';
+import { picsum } from '../lib/imageCdn';
 
 const featureRows = [
   ['Field Mapping', 'Crop Analytics', 'Data Sync'],
@@ -14,8 +15,8 @@ const stats = [
   { value: '130+', label: 'Farms Served' },
 ];
 
-const fieldImg =
-  'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=82';
+/** Stable aerial / landscape (Picsum) */
+const fieldImg = picsum(85, 1200, 800);
 
 export function AboutProduct() {
   return (
