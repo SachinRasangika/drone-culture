@@ -4,7 +4,8 @@ import { Footer } from '../components/Footer';
 import { projects } from '../data/projects';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { DC_EASE, dcTransition } from '../lib/motion';
 
 const portfolioHeroBg = `${import.meta.env.BASE_URL}hero.png`;
 
@@ -18,16 +19,17 @@ const categories = [
 
 export function AllProjectsPage() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const reduceMotion = useReducedMotion();
   const filteredProjects =
   activeCategory === 'All' ?
   projects :
   projects.filter((p) => p.category === activeCategory);
   return (
-    <div className="w-full min-h-screen bg-[#f5f5f5] flex flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-dc-surface">
       <Navbar />
 
       {/* Hero Banner */}
-      <div className="relative w-full h-[30vh] lg:h-[40vh] min-h-[250px] lg:min-h-[350px] bg-[#1a1a1a] flex flex-col justify-center items-center pt-20">
+      <div className="relative flex h-[30vh] min-h-[250px] w-full flex-col items-center justify-center bg-dc-ink pt-20 lg:h-[40vh] lg:min-h-[350px]">
         <div className="absolute inset-0 z-0">
           <img
             src={portfolioHeroBg}
@@ -37,23 +39,31 @@ export function AllProjectsPage() {
           />
         </div>
 
-        <div className="relative z-10 px-5 text-center sm:px-8">
-          <div className="dc-section-badge mb-4 inline-block lg:mb-6">Our Portfolio</div>
-          <h1 className="dc-page-title text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]">
-            Explore Our Work
-          </h1>
+        <div className="relative z-10 dc-gutter-x text-center">
+          <motion.div
+            className="dc-inner"
+            initial={reduceMotion ? false : { opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={dcTransition.enter}
+          >
+            <div className="dc-section-badge mb-4 inline-block lg:mb-6">Our Portfolio</div>
+            <h1 className="dc-page-title text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.5)]">
+              Explore Our Work
+            </h1>
+          </motion.div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 px-5 sm:px-8 lg:px-16 py-12 lg:py-20 max-w-[1600px] mx-auto w-full">
+      <div className="dc-gutter-x w-full flex-1 dc-section-y">
+        <div className="dc-inner">
         {/* Filters */}
-        <div className="flex overflow-x-auto flex-nowrap lg:flex-wrap justify-start lg:justify-center gap-2 lg:gap-3 mb-10 lg:mb-16 pb-4 lg:pb-0 scrollbar-hide -mx-5 px-5 lg:mx-0 lg:px-0">
+        <div className="mb-10 flex flex-nowrap justify-start gap-2 overflow-x-auto pb-4 scrollbar-hide lg:mb-16 lg:flex-wrap lg:justify-center lg:gap-3 lg:pb-0">
           {categories.map((category) =>
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`whitespace-nowrap px-5 lg:px-6 py-2.5 lg:py-3 rounded-full text-[14px] lg:text-[15px] font-medium transition-colors flex-shrink-0 ${activeCategory === category ? 'bg-[#1a1a1a] text-white' : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'}`}>
+            className={`flex-shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-[14px] font-normal transition-colors lg:px-6 lg:py-3 lg:text-[15px] ${activeCategory === category ? 'bg-dc-ink text-white' : 'border border-dc-border-soft bg-white text-dc-muted hover:bg-dc-surface'}`}>
             
               {category}
             </button>
@@ -77,16 +87,17 @@ export function AllProjectsPage() {
               y: 0
             }}
             transition={{
-              duration: 0.4,
-              delay: index * 0.05
+              duration: reduceMotion ? 0 : 0.46,
+              delay: reduceMotion ? 0 : index * 0.06,
+              ease: DC_EASE,
             }}
             key={project.id}>
             
               <Link
               to={`/project/${project.id}`}
-              className="group cursor-pointer block bg-white p-3 lg:p-4 rounded-[24px] lg:rounded-[32px] shadow-sm hover:shadow-md transition-shadow">
+              className="group block cursor-pointer rounded-dc-lg border border-transparent bg-white p-3 shadow-sm transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-dc-border-soft hover:shadow-md lg:p-4">
               
-                <div className="relative w-full h-[240px] sm:h-[280px] lg:h-[340px] rounded-[20px] lg:rounded-[24px] overflow-hidden mb-4 lg:mb-5">
+                <div className="relative mb-4 h-[240px] w-full overflow-hidden rounded-dc sm:h-[280px] lg:mb-5 lg:h-[340px]">
                   <img
                   src={project.coverImage}
                   alt={project.title}
@@ -95,20 +106,20 @@ export function AllProjectsPage() {
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                   {/* Hover Arrow */}
-                  <div className="absolute top-4 right-4 lg:top-5 lg:right-5 w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg">
-                    <ArrowUpRight size={18} className="text-[#1a1a1a]" />
+                  <div className="absolute top-4 right-4 flex h-10 w-10 translate-y-2 items-center justify-center rounded-full bg-white opacity-0 shadow-md transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 lg:right-5 lg:top-5 lg:h-12 lg:w-12">
+                    <ArrowUpRight size={18} className="text-dc-ink" />
                   </div>
                 </div>
 
                 <div className="px-3 lg:px-4 pb-2">
-                  <h3 className="dc-section-subtitle text-[#1a1a1a] mb-1">
+                  <h3 className="dc-section-subtitle mb-1 text-dc-ink">
                     {project.title}
                   </h3>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="dc-caption text-[#888]">
+                    <span className="dc-caption text-dc-muted">
                       {project.category}
                     </span>
-                    <span className="text-[12px] lg:text-[14px] font-medium text-[#1a1a1a] bg-gray-100 px-2.5 lg:px-3 py-1 rounded-full">
+                    <span className="rounded-full bg-dc-surface px-2.5 py-1 text-[12px] font-normal text-dc-ink lg:px-3 lg:text-[14px]">
                       {project.date}
                     </span>
                   </div>
@@ -119,10 +130,11 @@ export function AllProjectsPage() {
         </motion.div>
 
         {filteredProjects.length === 0 &&
-        <div className="text-center py-20 text-gray-500">
+        <div className="py-20 text-center text-gray-500">
             No projects found in this category.
           </div>
         }
+        </div>
       </div>
 
       <Footer />

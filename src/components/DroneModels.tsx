@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { BrandMark } from './BrandMark';
+import { DC_EASE, dcSpringGentle, dcViewport } from '../lib/motion';
+import { RevealStagger, RevealItem } from './Reveal';
 
 const drones = [
   {
@@ -36,15 +39,18 @@ const cardVariants = {
     y: 0,
     transition: {
       delay: 0.08 * i,
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.52,
+      ease: DC_EASE,
     },
   }),
 };
 
 export function DroneModels() {
   return (
-    <section className="relative w-full overflow-hidden py-16 lg:py-24">
+    <section
+      id="equipment"
+      className="dc-scroll-mt relative w-full overflow-hidden dc-section-y"
+    >
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#f2f3ef] via-[#e6e9e0] to-[#dfe4d6]"
         aria-hidden
@@ -67,43 +73,22 @@ export function DroneModels() {
         aria-hidden
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-16">
-        <div className="mb-10 flex flex-col gap-8 lg:mb-14 lg:grid lg:grid-cols-3 lg:items-center lg:gap-6">
-          <div className="hidden items-center gap-2 lg:flex">
-            <div className="grid h-6 w-6 grid-cols-2 gap-[2px]">
-              <div className="rounded-[2px] rounded-tl-[5px] bg-[#8b9d77]" />
-              <div className="rounded-[2px] rounded-tr-[5px] bg-[#8b9d77]" />
-              <div className="rounded-[2px] rounded-bl-[5px] bg-[#8b9d77]" />
-              <div className="rounded-[2px] rounded-br-[5px] bg-[#8b9d77]" />
-            </div>
-            <span className="dc-brand-name text-[#7a8a6a]">Drone Culture</span>
-          </div>
+      <div className="relative z-10 dc-gutter-x">
+        <div className="dc-inner">
+        <RevealStagger className="mb-10 flex flex-col gap-8 lg:mb-14 lg:grid lg:grid-cols-[minmax(0,180px)_1fr] lg:items-start lg:gap-10">
+          <RevealItem className="hidden items-center gap-2 lg:flex">
+            <BrandMark className="h-6 w-6" />
+            <span className="dc-brand-name text-dc-sage-muted">Drone Culture</span>
+          </RevealItem>
 
-          <div className="flex w-full flex-col items-start lg:items-center lg:text-center">
+          <RevealItem className="flex w-full flex-col items-start lg:items-center lg:text-center">
             <div className="dc-section-badge mb-4">Our Equipment</div>
-            <h2 className="dc-section-title text-left text-[#1a1a1a] lg:text-center">
+            <h2 className="dc-section-title text-left text-dc-ink lg:text-center">
               Camera
               <br className="hidden lg:block" /> Models
             </h2>
-          </div>
-
-          <div className="hidden items-center justify-end gap-3 lg:flex">
-            <button
-              type="button"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b8c4a8] bg-white/60 text-[#6a7558] backdrop-blur-sm transition-colors hover:border-[#8b9d77] hover:bg-white"
-              aria-label="Previous models"
-            >
-              <ChevronLeft size={20} strokeWidth={1.5} />
-            </button>
-            <button
-              type="button"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b8c4a8] bg-white/60 text-[#6a7558] backdrop-blur-sm transition-colors hover:border-[#8b9d77] hover:bg-white"
-              aria-label="Next models"
-            >
-              <ChevronRight size={20} strokeWidth={1.5} />
-            </button>
-          </div>
-        </div>
+          </RevealItem>
+        </RevealStagger>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6 lg:items-stretch">
           {drones.map((drone, index) => (
@@ -113,12 +98,11 @@ export function DroneModels() {
               variants={cardVariants}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, margin: '-40px' }}
-              whileHover={{ y: -6 }}
-              transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-              className="group flex h-full min-h-[320px] flex-col justify-between rounded-[24px] border border-white/60 bg-white/90 p-6 shadow-[0_12px_40px_-12px_rgba(26,26,26,0.12)] backdrop-blur-sm sm:min-h-[340px] lg:min-h-[400px] lg:p-7"
+              viewport={dcViewport}
+              whileHover={{ y: -6, transition: dcSpringGentle }}
+              className="group flex h-full min-h-[320px] flex-col justify-between rounded-dc border border-white/60 bg-white/90 p-6 shadow-sm backdrop-blur-sm transition-[box-shadow,transform] duration-300 ease-out hover:shadow-md sm:min-h-[340px] lg:min-h-[400px] lg:p-7"
             >
-              <span className="text-[20px] font-normal text-[#888] lg:text-[24px]">
+              <span className="text-[20px] font-normal text-dc-muted lg:text-[24px]">
                 {drone.coverage}
               </span>
 
@@ -133,21 +117,22 @@ export function DroneModels() {
 
               <div className="flex items-end justify-between">
                 <div>
-                  <h3 className="dc-section-subtitle text-[#1a1a1a]">
+                  <h3 className="dc-section-subtitle text-dc-ink">
                     {drone.name}
                   </h3>
-                  <p className="dc-caption mt-1 text-[#999]">{drone.subtitle}</p>
+                  <p className="dc-caption mt-1 text-dc-muted">{drone.subtitle}</p>
                 </div>
                 <button
                   type="button"
-                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#dcf073] transition-colors hover:bg-[#cbe052] lg:h-11 lg:w-11"
+                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-dc-lime transition-colors hover:bg-dc-lime-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dc-ink lg:h-11 lg:w-11"
                   aria-label={`Learn more about ${drone.name}`}
                 >
-                  <ArrowUpRight size={18} strokeWidth={2} className="text-[#3a3a3a]" />
+                  <ArrowUpRight size={18} strokeWidth={2} className="text-dc-lime-ink" />
                 </button>
               </div>
             </motion.div>
           ))}
+        </div>
         </div>
       </div>
     </section>

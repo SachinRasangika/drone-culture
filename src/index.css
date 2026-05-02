@@ -1,5 +1,5 @@
 /* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;1,400&display=swap');
 
 /* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
 @import 'tailwindcss/base';
@@ -11,45 +11,60 @@
 @layer base {
   html {
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    @apply m-0 overflow-x-hidden bg-dc-surface p-0 font-normal antialiased;
   }
 }
 
-body {
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background-color: #f5f5f5;
-}
-
-/* Shared section typography — use with color classes (e.g. text-[#1a1a1a], text-white) */
+/* Layout + typography — use text-dc-ink, text-white, text-dc-muted, etc. */
 @layer components {
+  .dc-gutter-x {
+    @apply px-5 sm:px-8 lg:px-16;
+  }
+  .dc-inner {
+    @apply mx-auto w-full max-w-dc;
+  }
+  /**
+   * Horizontal layout: put `dc-gutter-x` on the outer wrapper, then `dc-inner`
+   * inside it — do not combine both on one element (padding would shrink the max width).
+   */
+  .dc-section-y {
+    @apply py-16 lg:py-24;
+  }
+  .dc-scroll-mt {
+    @apply scroll-mt-6 lg:scroll-mt-8;
+  }
+
   .dc-section-badge {
-    @apply inline-flex items-center justify-center rounded-full text-[14px] font-medium px-5 py-2 bg-[#d4dcc4] text-[#5a6b4a] shadow-sm;
+    @apply inline-flex items-center justify-center rounded-full bg-dc-badge-bg px-5 py-2 text-[14px] font-normal text-dc-sage-dark shadow-sm;
   }
   .dc-page-title {
-    @apply text-[36px] sm:text-[56px] md:text-[72px] leading-[1.1] tracking-tight font-medium;
+    @apply text-[36px] sm:text-[56px] md:text-[72px] leading-[1.1] tracking-tight font-normal;
   }
   .dc-section-title {
-    @apply text-[36px] sm:text-[40px] lg:text-[52px] leading-[1.15] tracking-tight font-medium;
+    @apply text-[36px] sm:text-[40px] lg:text-[52px] leading-[1.15] tracking-tight font-normal;
   }
   .dc-section-subtitle {
-    @apply text-[20px] lg:text-[22px] font-semibold leading-tight;
+    @apply text-[20px] lg:text-[22px] font-normal leading-tight;
   }
   .dc-section-body {
     @apply text-[15px] leading-[1.7];
   }
   .dc-brand-name {
-    @apply text-[20px] lg:text-[22px] font-semibold tracking-tight;
+    @apply text-[20px] lg:text-[22px] font-normal tracking-tight;
   }
   .dc-stat-value {
-    @apply text-[36px] lg:text-[48px] font-medium leading-none tracking-tight;
+    @apply text-[36px] lg:text-[48px] font-normal leading-none tracking-tight;
   }
   .dc-stat-label {
     @apply text-[13px] font-normal;
   }
   .dc-card-label {
-    @apply text-[18px] lg:text-[20px] font-semibold;
+    @apply text-[18px] lg:text-[20px] font-normal;
   }
   .dc-caption {
     @apply text-[14px] font-normal;
@@ -58,7 +73,7 @@ body {
     @apply text-[20px] lg:text-[28px] leading-[1.35] tracking-tight;
   }
   .dc-footer-heading {
-    @apply text-[13px] lg:text-[14px] font-semibold;
+    @apply text-[13px] lg:text-[14px] font-normal;
   }
   .dc-footer-lead {
     @apply text-[24px] lg:text-[28px] leading-[1.2] tracking-tight font-normal;
@@ -94,4 +109,16 @@ body {
 
 .dc-equipment-float {
   animation: dc-float-soft 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .dc-equipment-float,
+  .dc-loader-ring,
+  .dc-loader-ring-reverse {
+    animation: none !important;
+  }
 }

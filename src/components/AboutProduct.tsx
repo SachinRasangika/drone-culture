@@ -1,97 +1,103 @@
 import React from 'react';
+import { BrandMark } from './BrandMark';
+import { Reveal, RevealItem, RevealStagger } from './Reveal';
+
+const featureRows = [
+  ['Field Mapping', 'Crop Analytics', 'Data Sync'],
+  ['AI Precision', 'Smart Spraying', 'Autonomous Flight'],
+];
+
+const stats = [
+  { value: '89%', label: 'Spray Accuracy' },
+  { value: '380k', label: 'Hectares Monitored' },
+  { value: '97%', label: 'Client Satisfaction' },
+  { value: '130+', label: 'Farms Served' },
+];
+
+const fieldImg =
+  'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=82';
+
 export function AboutProduct() {
   return (
-    <section className="w-full bg-[#f5f5f5] px-5 sm:px-8 lg:px-16 py-16 lg:py-[100px] flex flex-col lg:flex-row justify-between min-h-0 lg:min-h-screen gap-12 lg:gap-0">
-      {/* LEFT COLUMN */}
-      <div className="hidden lg:flex w-[40%] flex-col justify-between">
-        {/* Top-left grid icon */}
-        <div className="grid grid-cols-2 gap-[2px] w-[28px] h-[28px]">
-          <div className="bg-[#8b9d77] rounded-[2px] rounded-tl-[6px]"></div>
-          <div className="bg-[#8b9d77] rounded-[2px] rounded-tr-[6px]"></div>
-          <div className="bg-[#8b9d77] rounded-[2px] rounded-bl-[6px]"></div>
-          <div className="bg-[#8b9d77] rounded-[2px] rounded-br-[6px]"></div>
+    <section
+      id="about"
+      className="dc-scroll-mt w-full bg-dc-surface dc-gutter-x dc-section-y"
+    >
+      <div className="dc-inner">
+        <div className="mb-8 lg:hidden">
+          <BrandMark className="h-7 w-7" />
         </div>
 
-        {/* Drone image */}
-        <div className="mt-auto pt-[200px]">
-          <img
-            src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80"
-            alt="Drone capturing aerial photography"
-            className="w-[420px] h-[260px] object-cover rounded-[24px] shadow-sm" />
-          
-        </div>
-      </div>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-14 lg:items-start">
+          <div className="hidden min-h-[min(100vh-12rem,640px)] flex-col justify-between gap-10 lg:col-span-5 lg:flex">
+            <BrandMark className="h-7 w-7" />
 
-      {/* RIGHT COLUMN */}
-      <div className="w-full lg:w-[55%] flex flex-col">
-        {/* Badge */}
-        <div className="dc-section-badge mb-4">What We Do</div>
-
-        {/* Heading */}
-        <h2 className="dc-section-title text-[#1a1a1a] max-w-[650px] mb-8 lg:mb-10">
-          <span className="font-medium">
-            How effectively can your vision be captured{' '}
-          </span>
-          <span className="text-[#999] font-normal">
-            from above using drones?
-          </span>
-        </h2>
-
-        {/* Paragraph */}
-        <p className="dc-section-body text-[#888] max-w-[420px] mb-8 lg:mb-10">
-          SkyFrame transforms visual storytelling with premium drone
-          photography. Our studio provides cinematic videography, breathtaking
-          aerial shots, and intelligent flight planning to elevate your creative
-          projects.
-        </p>
-
-        {/* Feature Tags */}
-        <div className="flex flex-wrap gap-2 lg:gap-3 mb-12 lg:mb-14 max-w-[500px]">
-          {[
-          'Aerial Photography',
-          'Cinematic Video',
-          '4K Footage',
-          'Real Estate',
-          'Event Coverage',
-          'Landscape Shots'].
-          map((tag) =>
-          <div
-            key={tag}
-            className="border border-[#d1d1d1] text-[#1a1a1a] px-4 lg:px-6 py-2 lg:py-2.5 rounded-full text-[13px] lg:text-[14px] font-medium bg-transparent">
-            
-              {tag}
+            <div className="mt-auto w-full lg:pt-8">
+              <img
+                src={fieldImg}
+                alt="Drone over a green field"
+                className="aspect-[420/260] w-full rounded-dc-lg object-cover shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
+              />
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between gap-8 lg:gap-0 w-full max-w-[650px] mt-auto">
-          <div className="flex flex-col">
-            <span className="dc-stat-value text-[#1a1a1a] mb-2 lg:mb-3">
-              89%
-            </span>
-            <span className="dc-stat-label text-[#888]">Shot Accuracy</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="dc-stat-value text-[#1a1a1a] mb-2 lg:mb-3">
-              380+
-            </span>
-            <span className="dc-stat-label text-[#888]">Projects Completed</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="dc-stat-value text-[#1a1a1a] mb-2 lg:mb-3">
-              97%
-            </span>
-            <span className="dc-stat-label text-[#888]">Client Satisfaction</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="dc-stat-value text-[#1a1a1a] mb-2 lg:mb-3">
-              130+
-            </span>
-            <span className="dc-stat-label text-[#888]">Brands Served</span>
+          <div className="flex flex-col lg:col-span-7">
+            <Reveal className="flex w-full flex-col items-start">
+              <div className="dc-section-badge mb-4">What We Do</div>
+
+              <h2 className="mb-7 max-w-[620px] text-[32px] font-normal leading-[1.18] tracking-[-0.02em] text-dc-ink sm:text-[38px] lg:mb-9 lg:text-[48px] lg:leading-[1.15]">
+                <span className="text-dc-ink">
+                  How effectively can your fields be{' '}
+                </span>
+                <span className="text-dc-muted">scanned, treated, and optimized </span>
+                <span className="text-dc-ink">using drones?</span>
+              </h2>
+            </Reveal>
+
+            <Reveal>
+            <p className="dc-section-body mb-8 max-w-[460px] text-dc-subtle lg:mb-10">
+              At Drone Culture, we pair autonomous flight with field intelligence
+              so growers can map, treat, and monitor crops with confidence—turning
+              aerial data into decisions you can act on across every season.
+            </p>
+            </Reveal>
+
+            <RevealStagger className="mb-12 flex max-w-[540px] flex-col gap-2.5 lg:mb-14 lg:gap-3">
+              {featureRows.map((row) => (
+                <RevealItem key={row.join()} className="flex flex-wrap gap-2 lg:gap-2.5">
+                  {row.map((tag) => (
+                    <div
+                      key={tag}
+                      className="rounded-full border border-dc-border-soft bg-transparent px-4 py-2 text-[13px] font-normal text-dc-ink lg:px-5 lg:py-2.5 lg:text-[14px]"
+                    >
+                      {tag}
+                    </div>
+                  ))}
+                </RevealItem>
+              ))}
+            </RevealStagger>
+
+            <div className="mb-10 mt-2 lg:hidden">
+              <img
+                src={fieldImg}
+                alt="Drone over a green field"
+                className="aspect-[420/260] w-full max-w-[440px] rounded-dc-lg object-cover shadow-[0_1px_3px_rgba(0,0,0,0.06)]"
+              />
+            </div>
+
+            <RevealStagger className="mt-auto grid grid-cols-2 gap-x-6 gap-y-8 lg:flex lg:max-w-[640px] lg:flex-wrap lg:items-start lg:justify-between lg:gap-x-6">
+              {stats.map(({ value, label }) => (
+                <RevealItem key={label} className="flex min-w-0 flex-col lg:min-w-0">
+                  <span className="mb-1.5 text-[34px] font-normal leading-none tracking-tight text-dc-ink lg:mb-2 lg:text-[44px]">
+                    {value}
+                  </span>
+                  <span className="dc-stat-label text-dc-muted">{label}</span>
+                </RevealItem>
+              ))}
+            </RevealStagger>
           </div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }

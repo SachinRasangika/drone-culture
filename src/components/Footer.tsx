@@ -1,22 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { BrandMark } from './BrandMark';
+import { Reveal } from './Reveal';
+
+const footerLinkClass =
+  'text-[13px] text-dc-muted transition-colors hover:text-white focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dc-lime';
+
 export function Footer() {
   return (
-    <footer className="w-full bg-[#1a1a1a] border-t border-[#2a2a2a] px-5 sm:px-8 lg:px-16 pt-12 lg:pt-16 pb-10">
-      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16">
+    <footer className="w-full border-t border-dc-line bg-dc-ink dc-gutter-x pb-10 pt-12 lg:pt-16">
+      <Reveal className="dc-inner flex flex-col gap-12 lg:flex-row lg:gap-16">
         {/* LEFT COLUMN */}
         <div className="w-full lg:w-[40%] flex flex-col justify-between">
           {/* Drone Culture Logo */}
           <div>
-            <div className="flex items-center gap-2 mb-8 lg:mb-10">
-              <div className="grid grid-cols-2 gap-[2px] w-[20px] h-[20px] lg:w-[22px] lg:h-[22px]">
-                <div className="bg-[#8b9d77] rounded-[2px] rounded-tl-[5px]"></div>
-                <div className="bg-[#8b9d77] rounded-[2px] rounded-tr-[5px]"></div>
-                <div className="bg-[#8b9d77] rounded-[2px] rounded-bl-[5px]"></div>
-                <div className="bg-[#8b9d77] rounded-[2px] rounded-br-[5px]"></div>
-              </div>
-              <span className="dc-brand-name text-white">
-                Drone Culture
-              </span>
+            <div className="mb-8 flex items-center gap-2 lg:mb-10">
+              <BrandMark className="h-5 w-5 lg:h-[22px] lg:w-[22px]" />
+              <span className="dc-brand-name text-white">Drone Culture</span>
             </div>
 
             {/* Tagline */}
@@ -26,30 +26,27 @@ export function Footer() {
                 <br />
                 and cinematic{' '}
               </span>
-              <span className="text-[#666]">drone videography</span>
+              <span className="text-dc-muted">drone videography</span>
               <br />
               <span className="text-white">
                 for your next project.
               </span>
             </h3>
 
-            {/* Explore Products Button */}
-            <button className="flex items-center gap-3 mt-8 lg:mt-10 border border-[#444] text-white px-6 py-3 lg:py-3.5 rounded-full hover:border-[#777] transition-colors w-max">
-              <div className="grid grid-cols-2 gap-[2px] w-[14px] h-[14px]">
-                <div className="bg-[#8b9d77] rounded-[1px]"></div>
-                <div className="bg-[#8b9d77] rounded-[1px]"></div>
-                <div className="bg-[#8b9d77] rounded-[1px]"></div>
-                <div className="bg-[#8b9d77] rounded-[1px]"></div>
-              </div>
-              <span className="text-[13px] lg:text-[14px] font-medium">
+            <Link
+              to="/portfolio"
+              className="mt-8 flex w-max items-center gap-3 rounded-full border border-dc-charcoal-soft px-6 py-3 text-white transition-colors hover:border-dc-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dc-lime lg:mt-10 lg:py-3.5"
+            >
+              <BrandMark dense className="h-3.5 w-3.5" />
+              <span className="text-[13px] font-normal lg:text-[14px]">
                 View Portfolio
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Copyright (Hidden on mobile, moved to bottom) */}
-          <p className="hidden lg:block text-[12px] text-[#555] mt-16">
-            © 2025 Drone Culture Studios. All rights reserved.
+          <p className="mt-16 hidden text-[12px] text-dc-muted lg:block">
+            © 2026 Drone Culture Studios. All rights reserved.
           </p>
         </div>
 
@@ -64,36 +61,24 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-2 lg:gap-2.5">
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/portfolio" className={footerLinkClass}>
                     Real Estate
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/portfolio" className={footerLinkClass}>
                     Commercials
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/portfolio" className={footerLinkClass}>
                     Events & Festivals
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/portfolio" className={footerLinkClass}>
                     Landscapes
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -105,36 +90,24 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-2 lg:gap-2.5">
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#about" className={footerLinkClass}>
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#contact" className={footerLinkClass}>
                     Our Pilots
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#equipment" className={footerLinkClass}>
                     Equipment
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#insights" className={footerLinkClass}>
                     Press
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -148,15 +121,13 @@ export function Footer() {
                 <li>
                   <a
                     href="mailto:hello@droneculture.studio"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                    className={footerLinkClass}
+                  >
                     hello@droneculture.studio
                   </a>
                 </li>
                 <li>
-                  <span className="text-[#777] text-[13px]">
-                    Los Angeles, CA
-                  </span>
+                  <span className="text-[13px] text-dc-muted">Los Angeles, CA</span>
                 </li>
               </ul>
             </div>
@@ -171,36 +142,24 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-2 lg:gap-2.5">
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#about" className={footerLinkClass}>
                     Aerial Photography
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#about" className={footerLinkClass}>
                     Cinematic Video
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#modules" className={footerLinkClass}>
                     FPV Drone Tours
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#insights" className={footerLinkClass}>
                     Post-Production
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -212,34 +171,25 @@ export function Footer() {
               </h4>
               <ul className="flex flex-col gap-2 lg:gap-2.5">
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/pricing" className={footerLinkClass}>
                     Pricing
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#contact" className={footerLinkClass}>
                     FAQ
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                  <Link to="/#contact" className={footerLinkClass}>
                     Contact
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                    href="mailto:hello@droneculture.studio?subject=Privacy%20policy"
+                    className={footerLinkClass}
+                  >
                     Privacy Policy
                   </a>
                 </li>
@@ -254,25 +204,31 @@ export function Footer() {
               <ul className="flex flex-col gap-2 lg:gap-2.5">
                 <li>
                   <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                    href="https://www.instagram.com/"
+                    className={footerLinkClass}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Instagram
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                    href="https://vimeo.com/"
+                    className={footerLinkClass}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Vimeo
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="text-[#777] text-[13px] hover:text-white transition-colors">
-                    
+                    href="https://www.youtube.com/"
+                    className={footerLinkClass}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     YouTube
                   </a>
                 </li>
@@ -282,10 +238,10 @@ export function Footer() {
         </div>
 
         {/* Copyright (Mobile only) */}
-        <p className="block lg:hidden text-[12px] text-[#555] mt-8 pt-8 border-t border-[#2a2a2a]">
-          © 2025 Drone Culture Studios. All rights reserved.
+        <p className="mt-8 block border-t border-dc-line pt-8 text-[12px] text-dc-muted lg:hidden">
+          © 2026 Drone Culture Studios. All rights reserved.
         </p>
-      </div>
+      </Reveal>
     </footer>);
 
 }

@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { BrandMark } from './BrandMark';
+import { dcTransition } from '../lib/motion';
 const testimonials = [
 {
   name: 'Richard Exten',
@@ -61,116 +64,140 @@ const testimonials = [
 export function Feedback() {
   const [active, setActive] = useState(0);
   const current = testimonials[active];
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="w-full bg-[#1a1a1a] px-5 sm:px-8 lg:px-16 pt-10 pb-16">
-      <div className="flex flex-col md:flex-row gap-8 max-w-[1400px] mx-auto">
+    <section
+      id="contact"
+      className="dc-scroll-mt w-full bg-dc-ink dc-gutter-x dc-section-y"
+    >
+      <div className="dc-inner flex flex-col gap-8 md:flex-row">
         {/* LEFT: Portrait Image (Hidden on small screens) */}
         <div className="hidden md:block w-[38%] flex-shrink-0">
-          <div className="relative w-full h-[400px] lg:h-[520px] rounded-[24px] overflow-hidden">
-            <img
-              src={current.image}
-              alt={current.name}
-              className="w-full h-full object-cover" />
-            
+          <div className="relative h-[400px] w-full overflow-hidden rounded-dc lg:h-[520px]">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={current.image}
+                src={current.image}
+                alt={current.name}
+                className="absolute inset-0 h-full w-full object-cover"
+                initial={reduceMotion ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={reduceMotion ? undefined : { opacity: 0 }}
+                transition={dcTransition.micro}
+              />
+            </AnimatePresence>
 
             {/* Overlay Card at Bottom */}
-            <div className="absolute bottom-5 left-5 right-5 bg-[#dcf073] rounded-[16px] px-4 lg:px-5 py-3 lg:py-4 flex items-start gap-3">
-              <div className="flex-1">
-                <p className="text-[12px] leading-[1.5] text-[#1a1a1a]">
-                  <span className="font-semibold">{current.cardBold}</span>
-                  <span className="font-normal">{current.cardLight}</span>
-                </p>
-              </div>
-              <div className="w-8 h-8 lg:w-10 lg:h-10 bg-[#2d2d2d] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  className="lg:w-[18px] lg:h-[18px]">
-                  
-                  <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z" />
-                </svg>
-              </div>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                className="absolute bottom-5 left-5 right-5 flex items-start gap-3 rounded-2xl bg-dc-lime px-4 py-3 lg:px-5 lg:py-4"
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: 6 }}
+                transition={dcTransition.micro}
+              >
+                <div className="flex-1">
+                  <p className="text-[12px] leading-[1.5] text-dc-ink">
+                    <span className="font-normal">{current.cardBold}</span>
+                    <span className="font-normal">{current.cardLight}</span>
+                  </p>
+                </div>
+                <div className="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-dc-charcoal lg:h-10 lg:w-10">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="white"
+                    className="lg:w-[18px] lg:h-[18px]"
+                  >
+                    <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z" />
+                  </svg>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
         {/* CENTER: Quote */}
         <div className="flex-1 flex flex-col justify-between py-4 min-w-0">
           {/* Drone Culture Logo */}
-          <div className="flex items-center gap-2 mb-6 lg:mb-8">
-            <div className="grid grid-cols-2 gap-[2px] w-[18px] h-[18px] lg:w-[20px] lg:h-[20px]">
-              <div className="bg-[#8b9d77] rounded-[2px] rounded-tl-[4px]"></div>
-              <div className="bg-[#8b9d77] rounded-[2px] rounded-tr-[4px]"></div>
-              <div className="bg-[#8b9d77] rounded-[2px] rounded-bl-[4px]"></div>
-              <div className="bg-[#8b9d77] rounded-[2px] rounded-br-[4px]"></div>
-            </div>
-            <span className="dc-brand-name text-white">
-              Drone Culture
-            </span>
+          <div className="mb-6 flex items-center gap-2 lg:mb-8">
+            <BrandMark className="h-[18px] w-[18px] lg:h-5 lg:w-5" />
+            <span className="dc-brand-name text-white">Drone Culture</span>
           </div>
 
           {/* Quote Text */}
-          <div className="flex-1 flex flex-col justify-center">
-            <blockquote className="dc-quote text-white max-w-[520px]">
-              <span className="font-semibold">
-                {current.quoteBold}
-              </span>
-              <span className="text-[#999] font-normal">
-                {current.quoteLight}
-              </span>
-            </blockquote>
+          <div className="flex min-h-0 flex-1 flex-col justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={reduceMotion ? false : { opacity: 0, x: 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={reduceMotion ? undefined : { opacity: 0, x: -14 }}
+                transition={dcTransition.enter}
+              >
+                <blockquote className="dc-quote max-w-[520px] text-white">
+                  <span className="font-normal">{current.quoteBold}</span>
+                  <span className="font-normal text-dc-muted">{current.quoteLight}</span>
+                </blockquote>
 
-            {/* Author */}
-            <div className="mt-6 lg:mt-8 flex items-center gap-4 md:block">
-              <img
-                src={current.portrait}
-                alt={current.name}
-                className="w-12 h-12 rounded-full object-cover md:hidden" />
-              
-              <div>
-                <p className="text-white dc-caption font-semibold">
-                  {current.name}
-                </p>
-                <p className="text-[#999] text-[13px] mt-1 font-normal">
-                  {current.subtitle}
-                </p>
-              </div>
-            </div>
+                <div className="mt-6 flex items-center gap-4 md:mt-8 md:block">
+                  <img
+                    src={current.portrait}
+                    alt={current.name}
+                    className="h-12 w-12 rounded-full object-cover md:hidden"
+                  />
+
+                  <div>
+                    <p className="dc-caption font-normal text-white">{current.name}</p>
+                    <p className="mt-1 text-[13px] font-normal text-dc-muted">{current.subtitle}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Navigation Arrows */}
           <div className="flex items-center gap-3 mt-8 lg:mt-6">
             <button
+              type="button"
               onClick={() =>
-              setActive(
-                (prev) =>
-                (prev - 1 + testimonials.length) % testimonials.length
-              )
+                setActive(
+                  (prev) =>
+                    (prev - 1 + testimonials.length) % testimonials.length
+                )
               }
-              className="w-10 h-10 lg:w-11 lg:h-11 rounded-full border border-[#444] flex items-center justify-center text-[#666] hover:border-[#777] hover:text-[#999] transition-colors">
-              
-              <ChevronLeft size={18} strokeWidth={1.5} />
+              aria-label="Previous testimonial"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-dc-charcoal-soft text-dc-muted transition-colors hover:border-dc-muted hover:text-dc-muted/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dc-lime lg:h-12 lg:w-12"
+            >
+              <ChevronLeft size={18} strokeWidth={1.5} aria-hidden />
             </button>
             <button
-              onClick={() =>
-              setActive((prev) => (prev + 1) % testimonials.length)
-              }
-              className="w-10 h-10 lg:w-11 lg:h-11 rounded-full border border-[#444] flex items-center justify-center text-[#666] hover:border-[#777] hover:text-[#999] transition-colors">
-              
-              <ChevronRight size={18} strokeWidth={1.5} />
+              type="button"
+              onClick={() => setActive((prev) => (prev + 1) % testimonials.length)}
+              aria-label="Next testimonial"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-dc-charcoal-soft text-dc-muted transition-colors hover:border-dc-muted hover:text-dc-muted/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dc-lime lg:h-12 lg:w-12"
+            >
+              <ChevronRight size={18} strokeWidth={1.5} aria-hidden />
             </button>
           </div>
         </div>
 
         {/* RIGHT: Avatar Stack (Hidden on mobile) */}
         <div className="hidden md:flex w-[180px] flex-shrink-0 flex-col gap-3">
-          {testimonials.map((person, index) =>
-          <button
-            key={person.name}
-            onClick={() => setActive(index)}
-            className={`w-full rounded-[20px] px-4 py-3.5 flex items-center gap-3 transition-colors ${index === active ? 'bg-[#8b9d77]/40' : 'bg-[#2d2d2d]'}`}>
+          {testimonials.map((person, index) => (
+            <button
+              key={person.name}
+              type="button"
+              onClick={() => setActive(index)}
+              aria-pressed={index === active}
+              aria-label={`Show testimonial from ${person.name}`}
+              className={`flex w-full items-center gap-3 rounded-dc px-4 py-3.5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dc-lime ${
+                index === active ? 'bg-dc-sage/40' : 'bg-dc-charcoal-soft'
+              }`}
+            >
             
               <img
               src={person.portrait}
@@ -178,18 +205,18 @@ export function Feedback() {
               className="w-11 h-11 rounded-full object-cover flex-shrink-0" />
             
               {index === active ?
-            <span className="text-white text-[13px] font-medium leading-tight text-left">
+            <span className="text-white text-[13px] font-normal leading-tight text-left">
                   {person.name.split(' ')[0]}
                   <br />
                   {person.name.split(' ').slice(1).join(' ')}
                 </span> :
 
             <div className="flex-1 flex justify-end">
-                  <ArrowUpRight size={16} className="text-[#777]" />
+                  <ArrowUpRight size={16} className="text-dc-muted" />
                 </div>
             }
             </button>
-          )}
+          ))}
         </div>
       </div>
     </section>);

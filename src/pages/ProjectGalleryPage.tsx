@@ -4,12 +4,14 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { projects } from '../data/projects';
 import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { DC_EASE, dcTransition, dcViewport } from '../lib/motion';
 export function ProjectGalleryPage() {
   const { id } = useParams<{
     id: string;
   }>();
   const navigate = useNavigate();
+  const reduceMotion = useReducedMotion();
   const project = projects.find((p) => p.id === id);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   // Handle escape key for lightbox
@@ -31,20 +33,23 @@ export function ProjectGalleryPage() {
   }, [lightboxIndex, project]);
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center flex-col gap-4">
-        <h1 className="dc-section-subtitle text-[#1a1a1a]">Project not found</h1>
-        <Link to="/portfolio" className="text-blue-500 hover:underline">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-dc-surface">
+        <h1 className="dc-section-subtitle text-dc-ink">Project not found</h1>
+        <Link
+          to="/portfolio"
+          className="text-[15px] font-normal text-dc-sage-dark underline-offset-4 hover:underline"
+        >
           Back to Portfolio
         </Link>
       </div>);
 
   }
   return (
-    <div className="w-full min-h-screen bg-white flex flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-dc-surface">
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative w-full h-[50vh] lg:h-[60vh] min-h-[400px] lg:min-h-[500px] flex flex-col justify-end pb-12 lg:pb-20 px-5 sm:px-8 lg:px-16">
+      <div className="relative flex min-h-[400px] w-full flex-col justify-end pb-12 dc-gutter-x lg:min-h-[500px] lg:pb-20 h-[50vh] lg:h-[60vh]">
         <div className="absolute inset-0 z-0">
           <img
             src={project.coverImage}
@@ -53,7 +58,12 @@ export function ProjectGalleryPage() {
           />
         </div>
 
-        <div className="relative z-10 max-w-[1400px] mx-auto w-full">
+        <motion.div
+          className="relative z-10 dc-inner w-full"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={dcTransition.enter}
+        >
           <button
             onClick={() => navigate('/portfolio')}
             className="group mb-6 flex items-center gap-2 text-white/90 transition-colors [text-shadow:0_1px_10px_rgba(0,0,0,0.45)] hover:text-white lg:mb-8">
@@ -83,12 +93,13 @@ export function ProjectGalleryPage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Gallery Grid */}
-      <div className="flex-1 px-5 sm:px-8 lg:px-16 py-12 lg:py-24 max-w-[1600px] mx-auto w-full">
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6 space-y-4 lg:space-y-6">
+      <div className="dc-gutter-x w-full flex-1 dc-section-y">
+        <div className="dc-inner">
+        <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3 lg:gap-6 lg:space-y-6">
           {project.gallery.map((img, index) =>
           <motion.div
             key={index}
@@ -100,14 +111,13 @@ export function ProjectGalleryPage() {
               opacity: 1,
               y: 0
             }}
-            viewport={{
-              once: true
-            }}
+            viewport={dcViewport}
             transition={{
-              duration: 0.5,
-              delay: index * 0.1
+              duration: reduceMotion ? 0 : 0.5,
+              delay: reduceMotion ? 0 : index * 0.08,
+              ease: DC_EASE,
             }}
-            className="break-inside-avoid cursor-pointer group relative rounded-[16px] lg:rounded-[24px] overflow-hidden"
+            className="group relative cursor-pointer overflow-hidden break-inside-avoid rounded-dc"
             onClick={() => setLightboxIndex(index)}>
             
               <img
@@ -118,6 +128,7 @@ export function ProjectGalleryPage() {
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
             </motion.div>
           )}
+        </div>
         </div>
       </div>
 
@@ -136,6 +147,7 @@ export function ProjectGalleryPage() {
           exit={{
             opacity: 0
           }}
+          transition={dcTransition.overlay}
           className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center">
           
             <button
@@ -183,9 +195,7 @@ export function ProjectGalleryPage() {
               opacity: 0,
               scale: 0.95
             }}
-            transition={{
-              duration: 0.2
-            }}
+            transition={dcTransition.micro}
             src={project.gallery[lightboxIndex]}
             alt="Gallery full size"
             className="max-w-[90vw] max-h-[80vh] lg:max-h-[90vh] object-contain" />

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { AllProjectsPage } from './pages/AllProjectsPage';
 import { ProjectGalleryPage } from './pages/ProjectGalleryPage';
+import { PricingPage } from './pages/PricingPage';
 import { PageLoader } from './components/PageLoader';
 // Scroll to top on route change
 function ScrollToTop() {
@@ -19,6 +20,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/portfolio" element={<AllProjectsPage />} />
+        <Route path="/pricing" element={<PricingPage />} />
         <Route path="/project/:id" element={<ProjectGalleryPage />} />
       </Routes>
     </PageLoader>);

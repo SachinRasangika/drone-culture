@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BrandMark } from './BrandMark';
+import { dcTransition } from '../lib/motion';
 
 type PageLoaderProps = {
   children: React.ReactNode;
@@ -29,29 +31,24 @@ export function PageLoader({ children }: PageLoaderProps) {
         {visible && (
           <motion.div
             key="page-loader"
-            className="fixed inset-0 z-[300] flex flex-col items-center justify-center bg-[#1a1a1a]"
+            className="fixed inset-0 z-[300] flex flex-col items-center justify-center bg-dc-ink"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ ...dcTransition.enter, duration: 0.55 }}
           >
             <div className="relative flex h-20 w-20 items-center justify-center">
               <div
-                className="dc-loader-ring absolute inset-0 rounded-full border-2 border-transparent border-t-[#dcf073] border-r-[#dcf073]/40"
+                className="dc-loader-ring absolute inset-0 rounded-full border-2 border-transparent border-t-dc-lime border-r-dc-lime/40"
                 aria-hidden
               />
               <div
-                className="dc-loader-ring-reverse absolute inset-2 rounded-full border-2 border-transparent border-b-[#8b9d77] border-l-[#8b9d77]/50"
+                className="dc-loader-ring-reverse absolute inset-2 rounded-full border-2 border-transparent border-b-dc-sage border-l-dc-sage/50"
                 aria-hidden
               />
-              <div className="grid grid-cols-2 gap-[2px] w-7 h-7">
-                <div className="rounded-[2px] rounded-tl-[5px] bg-[#dcf073]" />
-                <div className="rounded-[2px] rounded-tr-[5px] bg-[#dcf073]" />
-                <div className="rounded-[2px] rounded-bl-[5px] bg-[#dcf073]" />
-                <div className="rounded-[2px] rounded-br-[5px] bg-[#dcf073]" />
-              </div>
+              <BrandMark variant="lime" className="h-7 w-7" />
             </div>
             <motion.p
-              className="mt-8 text-[13px] font-medium tracking-[0.2em] text-white/40 uppercase"
+              className="mt-8 text-[13px] font-normal uppercase tracking-[0.2em] text-white/40"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.4 }}
